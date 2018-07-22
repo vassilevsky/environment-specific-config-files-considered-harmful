@@ -34,7 +34,8 @@ end
 
 ### Ruby
 
-There is a popular library called config that facilitates reading settings from the following YAML files:
+There is a popular library called [config](https://rubygems.org/gems/config) that facilitates
+reading settings from the following YAML files:
 
     config/settings/development.yml
     config/settings/prerelease.yml
