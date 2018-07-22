@@ -196,8 +196,8 @@ You can have it all in one file. It'll be easier to search.
   * `config/config.exs`
     * Mix loads this single file everywhere.
     * Loading of env-specific files is commented out by default.
-    * I can put all configuration in this file and delete the env-specific directive.
-    * I can create load component-specific configs instead if I want to.
+    * I can put all configuration in this file and delete the env-specific import.
+    * I can create component-specific configs and import them instead if I want to.
 * Erlang
   * `sys.config`
     * Erlang loads only this file by default.
