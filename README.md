@@ -103,7 +103,7 @@ _If you are familiar with other examples, please do add them and send me a PR. T
 
 ## The Problem
 
-Having maintained applications with environment-specific configs like these for over 5 years,
+Having maintained apps with environment-specific configs for many years,
 I declare this technique a **harmful anti-pattern**.
 
 It all comes from the way applications undergo changes.
