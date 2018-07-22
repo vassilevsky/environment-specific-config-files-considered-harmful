@@ -247,10 +247,12 @@ For example, use Service Discovery. Ask your ops friends.
 
 ## Why Configuration Tho?
 
-In software developent, everything should exist for a reason.
+A more general thought to consider: why create configs at all?
 
+In software developent, everything should exist for a reason.
 Yet, it often seems to me that ever since an application starts to have a config file, everybody starts filling it
-with values for absolutely no reason. The logic seems to be "Hey, it's a primitive value, so it goes into config!".
+with values for absolutely no reason whatsoever.
+The logic seems to be "Hey, it's a primitive value, so it goes into config!".
 
 This logic is wrong.
 
