@@ -241,7 +241,9 @@ You will have better sleep.
 Therefore, any difference between environments **should stand out**.
 It should be ugly, it should pop into your eyes every time you see it, and it should make you want to get rid of it.
 
-This is a good thing.
+Get rid of it not by shoveling the differences into configs where they cannot be seen (they can).
+Actually eliminate differences in environments.
+For example, use Service Discovery. Ask your ops friends.
 
 ## Why Configuration Tho?
 
