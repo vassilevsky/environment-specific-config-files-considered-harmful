@@ -204,9 +204,9 @@ You can have it all in one file. It'll be easier to search.
 
 Even a single big config file is better than many env-specific files.
 
-## Uglyness
+## Ugliness
 
-The biggest obstacle you'll meet on the path of extracting component-specific configs is **perceived uglyness**.
+The biggest obstacle you'll meet on the path of extracting component-specific configs is **perceived ugliness**.
 
 ```ruby
 # config/initializers/sidekiq.rb
