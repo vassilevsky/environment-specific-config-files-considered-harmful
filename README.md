@@ -202,6 +202,85 @@ You can have it all in one file. It'll be easier to search.
   * `sys.config`
     * Erlang loads only this file by default.
 
+### Erlang
+
+It is not that easy to get rid of env-specific configs in Erlang projects
+because library authors kinda expect them.
+They simply read their library configs from project config like so:
+
+```erlang
+% hackney/src/hackney_connect.erl
+application:get_env(hackney, use_default_pool)
+
+% lager/src/lager_app.erl
+application:get_env(lager, handlers)
+
+% pooler/src/pooler_sup.erl
+application:get_env(pooler, pools)
+
+% etc
+```
+
+They expect to have configuration relevant to the current environment
+and so the application maintainer has to "shuffle" config files.
+
+The solution seems to be:
+create configuration for such libraries at run time, before starting them,
+with `application:set_env`:
+
+```erlang
+environment() -> os:getenv("ENV", "development").
+
+start_lager() ->
+    application:load(lager),
+    application:set_env(lager, handlers, lager_handlers(environment())),
+    lager:start().
+
+lager_handlers("development") -> [console_handler(), file_handler()];
+lager_handlers(_OtherEnv)     ->                    [file_handler()].
+
+console_handler() -> {lager_console_backend, [debug]}.
+file_handler()    -> {lager_file_backend, [{file, "node.log"}, {level, log_level(environment())}]}.
+
+log_level("production") -> info;
+log_level(_OtherEnv)    -> debug.
+```
+
+If the configuration is bigger, perhaps it's easier to keep it in a file
+(in a single one), and "preprocess" it before starting the library application:
+
+```erlang
+% application.config
+[
+  {library, [{production,  [{setting, value},  {other_setting, other_value}]},
+             {development, [{setting, value2}, {other_setting, other_value2}]}]}
+].
+
+% application.erl
+environment() -> os:getenv("ENV", development).
+
+start_library() ->
+    EnvSettings = application:get_env(library, environment()),
+    [application:set_env(library, Setting, Value) || {Setting, Value} <- EnvSettings ].
+```
+
+Or maybe even env-specific values for *some* of the settings:
+
+```erlang
+% application.config
+[
+  {library, [{foo, [{production, value},  {development, safe_value}]},
+             {bar, [{production, value2}, {development, safe_value2}]}]}
+].
+
+% application.erl
+environment() -> os:getenv("ENV", development).
+
+start_library() ->
+    Settings = application:get_all_env(library),
+    [application:set_env(library, Setting, proplists:get(environment(), EnvValues)) || {Setting, EnvValues} <- Settings ].
+```
+
 Even a single big config file is better than many env-specific files.
 
 ## Ugliness
