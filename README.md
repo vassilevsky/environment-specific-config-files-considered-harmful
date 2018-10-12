@@ -70,6 +70,9 @@ config :logger, :log_file,
   metadata: [:module, :pid, :log_id]
 ```
 
+More information about Elixir configuration:
+* [Elixir: Runtime vs. compile time configuration](https://www.amberbit.com/blog/2018/9/27/elixir-runtime-vs-compile-time-configuration/)
+
 ### Erlang
 
 Erlang applications can be launched with the `-config <name>` argument ([docs](http://erlang.org/doc/man/config.html)).
